@@ -1,0 +1,84 @@
+/* ===================================
+   UTILITIES - Helper Classes
+   =================================== */
+
+/* Text */
+.text-gradient {
+    background: var(--blue-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: var(--font-weight-bold);
+}
+
+/* Shadows */
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.shadow {
+    box-shadow: var(--card-shadow) !important;
+}
+
+/* Border Radius */
+.rounded-lg {
+    border-radius: var(--radius-lg) !important;
+}
+
+/* Footer */
+footer {
+    background: rgba(255,255,255,0.95);
+    padding: var(--spacing-lg) 0;
+    margin-top: 3rem;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+footer p {
+    margin: 0;
+    color: #5a5c69;
+    font-weight: var(--font-weight-normal);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding-top: 60px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .navbar {
+        padding: 0.5rem 1rem !important;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        width: 250px;
+        z-index: 1000;
+        transition: left 0.3s ease;
+    }
+    
+    .sidebar.show {
+        left: 0;
+    }
+}
+
+/* Print */
+@media print {
+    .sidebar, .navbar, .btn, footer {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+}

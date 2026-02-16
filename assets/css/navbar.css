@@ -1,0 +1,65 @@
+/* ===================================
+   NAVBAR STYLES
+   =================================== */
+
+.navbar {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    transition: all 0.3s ease;
+}
+
+/* Navbar scrolled effect */
+.navbar.scrolled {
+    padding: 0.5rem 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.navbar-brand {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.6rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-brand i {
+    color: var(--primary-dark);
+    font-size: 2rem;
+}
+
+.navbar .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    background: var(--blue-gradient);
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+}
+
+.navbar .user-info i {
+    font-size: 1.2rem;
+}
+
+.notification-bell {
+    position: relative;
+    margin-right: 15px;
+}
+
+.notification-bell .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+}

@@ -1,0 +1,45 @@
+/* ===================================
+   CSS VARIABLES - Color & Theme
+   =================================== */
+
+:root {
+    /* Sky Blue Theme Colors */
+    --primary: #4FC3F7;
+    --primary-dark: #29B6F6;
+    --primary-light: #81D4FA;
+    --secondary: #78909C;
+    --success: #66BB6A;
+    --info: #42A5F5;
+    --warning: #FFA726;
+    --danger: #EF5350;
+    --light: #E3F2FD;
+    --dark: #263238;
+    
+    /* Sky Blue Gradients */
+    --blue-gradient: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+    --blue-gradient-dark: linear-gradient(135deg, #29B6F6 0%, #0288D1 100%);
+    --sidebar-gradient: linear-gradient(180deg, #0277BD 0%, #01579B 100%);
+    --card-gradient: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+    
+    /* Shadows */
+    --card-shadow: 0 4px 20px rgba(79, 195, 247, 0.15);
+    --button-shadow: 0 4px 15px rgba(79, 195, 247, 0.3);
+    --hover-shadow: 0 8px 30px rgba(79, 195, 247, 0.25);
+    
+    /* Spacing */
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 15px;
+    --font-weight-normal: 500;
+    --font-weight-bold: 700;
+}
