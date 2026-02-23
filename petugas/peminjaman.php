@@ -11,25 +11,30 @@ if (!isLoggedIn() || !hasRole('petugas')) {
 if (isset($_GET['action']) && isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $action = $_GET['action'];
-    
+
     if ($action == 'approve') {
-        // Kurangi stok alat saat disetujui
-        $detail_query = "SELECT alat_id, jumlah FROM detail_peminjaman WHERE peminjaman_id = $id";
-        $detail_result = mysqli_query($conn, $detail_query);
-        while ($detail = mysqli_fetch_assoc($detail_result)) {
-            $alat_id = $detail['alat_id'];
-            $jumlah = $detail['jumlah'];
-            mysqli_query($conn, "UPDATE alat SET jumlah_tersedia = jumlah_tersedia - $jumlah WHERE id = $alat_id");
+        mysqli_query($conn, "UPDATE peminjaman 
+            SET status='dipinjam', petugas_id={$_SESSION['user_id']} 
+            WHERE id=$id AND status='pending'");
+
+        if (mysqli_affected_rows($conn) > 0) {
+            // Kurangi stok alat hanya sekali saat approve berhasil.
+            $detail_query = "SELECT alat_id, jumlah FROM detail_peminjaman WHERE peminjaman_id = $id";
+            $detail_result = mysqli_query($conn, $detail_query);
+            while ($detail = mysqli_fetch_assoc($detail_result)) {
+                $alat_id = (int)$detail['alat_id'];
+                $jumlah = (int)$detail['jumlah'];
+                mysqli_query($conn, "UPDATE alat SET jumlah_tersedia = jumlah_tersedia - $jumlah WHERE id = $alat_id");
+            }
+            logActivity($_SESSION['user_id'], 'Approve Peminjaman', "Menyetujui peminjaman ID: $id");
         }
-        
-        mysqli_query($conn, "UPDATE peminjaman SET status='disetujui', petugas_id={$_SESSION['user_id']} WHERE id=$id");
-        logActivity($_SESSION['user_id'], 'Approve Peminjaman', "Menyetujui peminjaman ID: $id");
     } elseif ($action == 'reject') {
-        mysqli_query($conn, "UPDATE peminjaman SET status='ditolak', petugas_id={$_SESSION['user_id']} WHERE id=$id");
-        logActivity($_SESSION['user_id'], 'Reject Peminjaman', "Menolak peminjaman ID: $id");
-    } elseif ($action == 'dipinjam') {
-        mysqli_query($conn, "UPDATE peminjaman SET status='dipinjam' WHERE id=$id");
-        logActivity($_SESSION['user_id'], 'Update Status Peminjaman', "Mengubah status peminjaman ID: $id menjadi dipinjam");
+        mysqli_query($conn, "UPDATE peminjaman 
+            SET status='ditolak', petugas_id={$_SESSION['user_id']} 
+            WHERE id=$id AND status='pending'");
+        if (mysqli_affected_rows($conn) > 0) {
+            logActivity($_SESSION['user_id'], 'Reject Peminjaman', "Menolak peminjaman ID: $id");
+        }
     }
     
     header("Location: peminjaman.php");
@@ -80,8 +85,8 @@ include '../includes/header.php';
                                     <?php if ($row['status'] == 'pending'): ?>
                                         <a href="?action=approve&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-success">Setujui</a>
                                         <a href="?action=reject&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger">Tolak</a>
-                                    <?php elseif ($row['status'] == 'disetujui'): ?>
-                                        <a href="?action=dipinjam&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-info">Tandai Dipinjam</a>
+                                    <?php else: ?>
+                                        <span class="text-muted">-</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
