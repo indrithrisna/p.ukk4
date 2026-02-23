@@ -161,7 +161,7 @@ if (session_status() === PHP_SESSION_NONE) {
             }
             ?>
             <a class="navbar-brand" href="<?php echo $base; ?>index.php">
-                <i class="bi bi-calendar-event"></i> Event Rental System
+                <i class="bi bi-box-seam text-primary"></i> Sistem Peminjaman Alat Event
             </a>
             <?php if (isset($_SESSION['user_id'])): ?>
             <div class="navbar-nav ms-auto d-flex align-items-center">

@@ -73,8 +73,85 @@ include '../includes/header.php';
         <?php include '../includes/admin_sidebar.php'; ?>
         
         <div class="col-md-10 p-4">
-            <h2><i class="bi bi-graph-up"></i> Laporan & Statistik Sistem</h2>
-            <hr>
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="mb-1"><i class="bi bi-graph-up text-primary"></i> Laporan & Statistik Sistem</h2>
+                    <p class="text-muted mb-0">Analisis lengkap data peminjaman alat event</p>
+                </div>
+                <div>
+                    <button class="btn btn-success" onclick="window.print()">
+                        <i class="bi bi-printer"></i> Cetak Laporan
+                    </button>
+                    <button class="btn btn-primary" onclick="exportToPDF()">
+                        <i class="bi bi-file-earmark-pdf"></i> Export PDF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Statistik Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);">
+                        <div class="card-body text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="mb-0"><?php echo $total_peminjaman; ?></h3>
+                                    <p class="mb-0 opacity-75">Total Peminjaman</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-clipboard-data" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #66BB6A 0%, #43A047 100%);">
+                        <div class="card-body text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="mb-0"><?php echo $total_alat; ?></h3>
+                                    <p class="mb-0 opacity-75">Total Alat</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-box-seam" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%);">
+                        <div class="card-body text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="mb-0"><?php echo $total_users; ?></h3>
+                                    <p class="mb-0 opacity-75">Total Users</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-people" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #AB47BC 0%, #8E24AA 100%);">
+                        <div class="card-body text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h3 class="mb-0">Rp<?php echo number_format($total_keseluruhan, 0, ',', '.'); ?></h3>
+                                    <p class="mb-0 opacity-75">Total Pendapatan</p>
+                                </div>
+                                <div>
+                                    <i class="bi bi-cash-coin" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row g-3 mb-4">
                 <div class="col-lg-4">
@@ -167,9 +244,9 @@ include '../includes/header.php';
                                         foreach ($alat_populer_data as $row): 
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['nama_alat']; ?></td>
-                                        <td class="text-center"><span class="badge bg-primary"><?php echo $row['jumlah_peminjaman']; ?>x</span></td>
-                                        <td class="text-center"><?php echo $row['total_unit']; ?> unit</td>
+                                        <td><?php echo htmlspecialchars($row['nama_alat'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="text-center"><span class="badge bg-primary"><?php echo (int)$row['jumlah_peminjaman']; ?>x</span></td>
+                                        <td class="text-center"><?php echo (int)$row['total_unit']; ?> unit</td>
                                     </tr>
                                     <?php 
                                         endforeach;
@@ -205,9 +282,9 @@ include '../includes/header.php';
                                         foreach ($peminjam_aktif_data as $row): 
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['nama']; ?></td>
-                                        <td class="text-center"><span class="badge bg-success"><?php echo $row['jumlah_peminjaman']; ?>x</span></td>
-                                        <td class="text-end">Rp <?php echo number_format($row['total_biaya'], 0, ',', '.'); ?></td>
+                                        <td><?php echo htmlspecialchars($row['nama'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td class="text-center"><span class="badge bg-success"><?php echo (int)$row['jumlah_peminjaman']; ?>x</span></td>
+                                        <td class="text-end">Rp <?php echo number_format((float)$row['total_biaya'], 0, ',', '.'); ?></td>
                                     </tr>
                                     <?php 
                                         endforeach;
@@ -346,6 +423,47 @@ include '../includes/header.php';
             }
         });
     });
+</script>
+
+<style>
+@media print {
+    .btn, .sidebar, .navbar, .no-print {
+        display: none !important;
+    }
+    
+    .container-fluid {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .col-md-10 {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .card {
+        break-inside: avoid;
+        margin-bottom: 20px;
+    }
+    
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}
+</style>
+
+<script>
+function exportToPDF() {
+    // Simple PDF export using browser print to PDF
+    const originalTitle = document.title;
+    document.title = 'Laporan Sistem Peminjaman Alat - ' + new Date().toLocaleDateString('id-ID');
+    
+    setTimeout(() => {
+        window.print();
+        document.title = originalTitle;
+    }, 100);
+}
 </script>
 
 <?php include '../includes/footer.php'; ?>
