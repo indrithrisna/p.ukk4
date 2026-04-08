@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <title><?php echo isset($page_title) ? $page_title : 'Sistem Peminjaman Alat Event'; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="<?php echo $base ?? '../'; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo BASE_PATH; ?>assets/css/style.css">
     <style>
         .sidebar {
             min-height: 100vh;
@@ -35,10 +35,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container-fluid">
             <?php
-            // Hitung level direktori untuk base path
-            $level = substr_count($_SERVER['PHP_SELF'], '/') - 2;
-            $base = str_repeat('../', max(0, $level));
-            
+            // Base path sudah didefinisikan di config/database.php
             // Notifikasi untuk Peminjam
             $notif_count = 0;
             $notifications = [];
@@ -160,7 +157,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 }
             }
             ?>
-            <a class="navbar-brand" href="<?php echo $base; ?>index.php">
+            <a class="navbar-brand" href="<?php echo BASE_PATH; ?>index.php">
                 <i class="bi bi-box-seam text-primary"></i> Sistem Peminjaman Alat Event
             </a>
             <?php if (isset($_SESSION['user_id'])): ?>
@@ -211,7 +208,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <i class="bi bi-person-circle text-primary"></i> <?php echo $_SESSION['nama']; ?> 
                     <span class="badge bg-primary"><?php echo ucfirst($_SESSION['role']); ?></span>
                 </span>
-                <a href="<?php echo $base; ?>auth/logout.php" class="btn btn-danger btn-sm">
+                <a href="<?php echo BASE_PATH; ?>auth/logout.php" class="btn btn-danger btn-sm">
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </a>
             </div>

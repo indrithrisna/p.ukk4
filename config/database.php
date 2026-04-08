@@ -5,6 +5,22 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'event_rental');
 
+// Konfigurasi Base Path - untuk konsistensi di local dan hosting
+if (!defined('BASE_PATH')) {
+    // Deteksi direktori root aplikasi
+    if (strpos($_SERVER['PHP_SELF'], '/admin/') !== false) {
+        define('BASE_PATH', '../');
+    } elseif (strpos($_SERVER['PHP_SELF'], '/petugas/') !== false) {
+        define('BASE_PATH', '../');
+    } elseif (strpos($_SERVER['PHP_SELF'], '/peminjam/') !== false) {
+        define('BASE_PATH', '../');
+    } elseif (strpos($_SERVER['PHP_SELF'], '/auth/') !== false) {
+        define('BASE_PATH', '../');
+    } else {
+        define('BASE_PATH', './');
+    }
+}
+
 // Koneksi Database
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
