@@ -101,9 +101,9 @@ include '../includes/header.php';
                                     <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#detailModal<?php echo $row['id']; ?>">
                                         <i class="bi bi-eye"></i> Detail
                                     </button>
-                                    <a href="?selesai=<?php echo $row['id']; ?>" class="btn btn-sm btn-success" onclick="return confirm('Konfirmasi pengembalian alat?')">
+                                    <button class="btn btn-sm btn-success" onclick="if(confirm('Konfirmasi pengembalian alat?')) location.href='?selesai=<?php echo $row['id']; ?>'">
                                         <i class="bi bi-check-circle"></i> Selesai
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             

@@ -1,5 +1,5 @@
     <footer class="bg-light text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2024 Sistem Peminjaman Alat Event. All rights reserved.</p>
+        <p class="mb-0">&copy; 2026 Sistem Peminjaman Alat (12 RPL 3). All rights reserved.</p>
     </footer>
     
     <!-- jQuery harus di-load dulu sebelum Bootstrap -->

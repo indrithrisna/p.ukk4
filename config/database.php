@@ -33,6 +33,18 @@ function autoCreateTables() {
         )";
         @mysqli_query($conn, $query);
     }
+
+    // Cek kolom merk di tabel alat
+    $check_merk = @mysqli_query($conn, "SHOW COLUMNS FROM alat LIKE 'merk'");
+    if ($check_merk && mysqli_num_rows($check_merk) == 0) {
+        @mysqli_query($conn, "ALTER TABLE alat ADD COLUMN merk VARCHAR(100) AFTER nama_alat");
+    }
+
+    // Cek kolom deleted_at di tabel alat
+    $check_deleted = @mysqli_query($conn, "SHOW COLUMNS FROM alat LIKE 'deleted_at'");
+    if ($check_deleted && mysqli_num_rows($check_deleted) == 0) {
+        @mysqli_query($conn, "ALTER TABLE alat ADD COLUMN deleted_at DATETIME NULL DEFAULT NULL");
+    }
 }
 
 // Jalankan auto-create saat pertama kali load

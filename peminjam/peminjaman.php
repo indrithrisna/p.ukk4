@@ -229,7 +229,7 @@ $terlambat = mysqli_fetch_assoc(mysqli_query($conn, "
                                             <td>Rp <?php echo number_format($row['total_biaya'], 0, ',', '.'); ?></td>
                                             <td>
                                                 <?php if ($row['status'] == 'pending'): ?>
-                                                <a href="?cancel=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin batalkan?')">Batalkan</a>
+                                                <button class="btn btn-sm btn-danger" onclick="if(confirm('Yakin batalkan?')) location.href='?cancel=<?php echo $row['id']; ?>'">Batalkan</button>
                                                 <?php else: ?>
                                                 <span class="text-muted">-</span>
                                                 <?php endif; ?>
